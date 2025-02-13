@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Style+Script&display=swap');
+        
+        body {
+            text-align: center;
+            background-color: #ffe6e6;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        h1 {
+            font-family: 'Style Script', cursive;
+            font-size: 48px;
+            color: #d63384;
+        }
+        .heart {
+            font-size: 50px;
+            color: red;
+            animation: heartbeat 1s infinite alternate;
+            cursor: pointer;
+            position: relative;
+        }
+        @keyframes heartbeat {
+            from { transform: scale(1); }
+            to { transform: scale(1.3); }
+        }
+        .message {
+            display: none;
+            font-size: 20px;
+            color: #d63384;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        .flowers {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            animation: burst 0.8s linear forwards;
+        }
+        @keyframes burst {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+        .falling-flower {
+            position: absolute;
+            font-size: 50px;
+            opacity: 0.8;
+            animation: fall 5s linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>💖 Happy Valentine's Day! 💖</h1>
+    <p>Tap the heart for a surprise!</p>
+    <div class="heart" onclick="showMessage(event)">❤️</div>
+    <p class="message" id="message"><i>You are amazing and loved and so talented. You deserve the best.</i></p>
+    
+    <script>
+        function showMessage(event) {
+            document.getElementById("message").style.display = "block";
+            createFlowers(event.clientX, event.clientY);
+        }
+
+        function createFlowers(x, y) {
+            for (let i = 0; i < 6; i++) {
+                let flower = document.createElement("div");
+                flower.innerHTML = "💐";
+                flower.className = "flowers";
+                document.body.appendChild(flower);
+                
+                let angle = (Math.PI * 2 * i) / 6;
+                let xOffset = Math.cos(angle) * 50;
+                let yOffset = Math.sin(angle) * 50;
+                
+                flower.style.left = `${x + xOffset}px`;
+                flower.style.top = `${y + yOffset}px`;
+                
+                setTimeout(() => { flower.remove(); }, 800);
+            }
+        }
+
+        function createFallingFlowers() {
+            setInterval(() => {
+                let flower = document.createElement("div");
+                flower.innerHTML = "🌸";
+                flower.className = "falling-flower";
+                flower.style.left = `${Math.random() * 100}vw`;
+                flower.style.top = "-50px";
+                flower.style.animationDuration = `${3 + Math.random() * 3}s`;
+                document.body.appendChild(flower);
+                
+                setTimeout(() => { flower.remove(); }, 5000);
+            }, 500);
+        }
+
+        createFallingFlowers();
+    </script>
+</body>
+</html>
